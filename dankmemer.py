@@ -22,7 +22,7 @@ async def on_message(message):
     if message.author.id == 270904126974590976:
         # Repeat Order
         # Copy-Paste the message
-        if '- repeat order -' in message.content.lower() or 'remember the words order' in message.content.lower():
+        if '- repeat order -' in message.content.lower() or 'remember words order!' in message.content.lower():
             await message.channel.send(message.content)
 
         # Emoji Match
