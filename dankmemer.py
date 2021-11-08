@@ -22,12 +22,12 @@ async def on_message(message):
     if message.author.id == 270904126974590976:
         # Repeat Order
         # Copy-Paste the message
-        if '- repeat order -' in message.content.lower() or 'remember words order!' in message.content.lower():
+        if 'remember words order!' in message.content.lower():
             await message.channel.send(message.content)
 
         # Emoji Match
         # Copy-Paste the emoji that needs to be remembered
-        if '- emoji match -' in message.content.lower() or 'look at the emoji closely!' in message.content.lower():
+        if 'look at the emoji closely!' in message.content.lower():
             target = message.content.split('\n')
             target = target[1]
             await message.channel.send(target)
@@ -38,12 +38,13 @@ async def on_message_edit(message_before, message_after):
     if message_before.author.id == 270904126974590976:
         # print all emoji according to the order (5x2 or smt. idk, try urself)
         if 'What was the emoji?' in message_after.content:
-            for embed in message_after.components:
-                message_to_send = ''
-                for component in embed.children:
-                    message_to_send = message_to_send + str(component.label)
-                if not message_after.components[0].children[0].disabled:
-                    await message_after.channel.send(message_to_send)
+            message_to_send = ''
+            if not message_after.components[0].children[0].disabled:
+                for component in message_after.components:
+                    for btn in component.children:
+                        message_to_send = message_to_send + str(btn.emoji.name)
+                    message_to_send = message_to_send + '\n'
+                await message_after.channel.send(message_to_send)
 
         # print the correct color
         if 'What color was next to the word' in message_after.content:
